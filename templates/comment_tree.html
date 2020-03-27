@@ -1,0 +1,31 @@
+{% load comment_tag %}
+{% load static %}
+{% for comment in comments %}
+<li>
+    <table>
+        <tr>
+            <td style="display: none">
+                {{ comment.id }}
+            </td>
+            <td style="width: 750px">
+                <ul style="list-style-type: none;position: relative;left:-50px;">
+                    <li style="float: left;">
+                        <div>
+                            楼主{{ comment.id }}回复楼主{{ comment.parent.id }}:&nbsp;&nbsp;
+                        </div>
+                    </li>
+                    <li style="float: left">{{ comment.comment|safe }}</li>
+                </ul>
+            </td>
+            <td>
+                <button class="replyComment" style="border:none">
+                    <img src="{% static 'icon/reply.png' %}">
+                </button>
+            </td>
+        </tr>
+    </table>
+</li>
+    {% if comment_dict|judge_empty:comment %}
+    {% get_comment_tree comment comment_dict %}
+    {% endif %}
+{% endfor %}

@@ -1,0 +1,47 @@
+.whole{
+    width: 70%;
+    height: 100%;
+    margin-left: 15%;
+}
+.whole > div{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-color: white;
+    border-width: 1px;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+.article{
+    margin-bottom: 20px;
+}
+.article_title{
+    text-decoration: none;
+    color: black;
+}
+.commentList{
+    border-width: 1px;
+    border-style:solid;
+    border-color:  #F8F8F8;
+    margin-top: 20px;
+    background-color: white;
+}
+.commentList >ul>li{
+    list-style-type: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.editArticle{
+    background-color: white;
+}
+#editArticleForm{
+    background-color: white;
+    margin-top: 20px;
+}
+#showFom{
+    padding-top: 10px;
+}
+.comment_align>li{
+    list-style-type: none;
+}

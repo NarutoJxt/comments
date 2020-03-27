@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <form>
+            <div class="form-group">
+                <label for="exampleInputEmail1">文章标题</label>
+                {% form.title %}
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">文章标题</label>
+                {% form.content %}
+            </div>
+            <button class="btn-block" type="submit">提交</button>
+            <button class="btn-block" type="reset">修改</button>
+    </form>
+
+{% endblock %}

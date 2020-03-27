@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load comment_tag %}
+{% load static %}
+{% block header %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+{% endblock %}
+{% block content %}
+    <div class="whole">
+        <div class="panel panel-info article">
+            <div class="panel panel-heading">
+                <a class="article_title" href="{{ article.get_absulute_url }}">
+                    {{ article.title }}
+                </a>
+            </div>
+            <div class="panel-body">
+                {{ article.content }}
+            </div>
+            <div class="panel-footer" id="{{ article.pk }}">
+                <button class="commentArticle" style="border:none" onmouseout="changeIconOut(this)"
+                        onmouseover="changeIconClick(this)"
+                >
+                    <img src="{% static 'icon/comment_show.png' %}">
+                </button>
+            </div>
+
+
+        </div>
+        <div class="commentList">
+            <h3>评论：</h3>
+            <ul>
+            {% if header %}
+                {% for comment in header %}
+                    <li>
+                        <table>
+                            <tr>
+                                <td style="display: none">
+                                    {{ comment.id }}
+                                </td>
+                                <td style="width: 750px">
+                                    <ul style="list-style-type: none;position: relative;left:-50px;">
+                                        <li style="float: left">
+                                            <div>
+                                                楼主{{ comment.id }}评论:&nbsp;&nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="float: left">{{ comment.comment|safe }}</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <button class="replyComment" style="border:none">
+                                        <img src="{% static 'icon/reply.png' %}">
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                    </li>
+                    <li>
+                            {% if comment_dict|judge_empty:comment %}
+                                 <ul style="list-style-type: none;background-color:#F8F8F8;padding-top: 10px;padding-right: 10px">
+                                {% get_comment_tree comment comment_dict %}
+                                       </ul>
+                            {% endif %}
+                    </li>
+                {% endfor %}
+            {% else %}
+                <h3>暂时没有评论</h3>
+            {% endif %}
+                <li>
+                    <div class="showForm">
+                        <form action="{% url 'Comment_blog:commentEdit' %}" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {{ form.article }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.media }}
+                                {{ form.comment }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.parent }}
+                            </div>
+                            <button type="submit">评论</button>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+
+    </div>
+
+
+{% endblock %}
+{% block footer %}
+    <script src="{% static 'index.js' %}">
+
+    </script>
+    <script src="{% static 'index-jq.js' %}"></script>
+{% endblock %}

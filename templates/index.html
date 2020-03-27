@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load  static %}
+{% block header %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="whole">
+        {% for article in aritcles %}
+            <div class="panel panel-info article">
+                <div class="panel panel-heading">
+                    <a class="article_title" href="{{ article.get_absulute_url }}">
+                        {{ article.title }}
+                    </a>
+                </div>
+                  <div class="panel-body">
+                    {{ article.content|safe }}
+                  </div>
+                     <div class="panel-footer" id="{{ article.pk }}">
+                         <button class="commentSlideDown" style="border:none" onmouseout="changeIconOut(this)" onmouseover="changeIconClick(this)">
+                             <a href="{{ article.get_absulute_url }}"><img src="{% static 'icon/comment_show.png' %}"></a>
+                         </button>
+                     </div>
+              </div>
+            {% endfor %}
+    <div class="editArticle">
+        <button id="showFom" class="btn btn-primary" style="width: 100%;height: 50px">添加文章</button>
+    </div>
+    <div id="editArticleForm">
+            <form id="editArticle" method="post" action="{% url "Comment_blog:articleEdit" %}">
+                {% csrf_token %}
+            <div class="form-group">
+                <label for="exampleInputEmail1">文章标题</label>
+                {{ form.title }}
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">文章标题</label>
+                <br>
+                <div style="margin-left: 40px">{{ form.media }}
+                {{ form.content }}
+                </div>
+            </div>
+            <button class="btn btn-primary" type="submit">提交</button>
+            <button class="btn btn-primary" type="reset">修改</button>
+        </form>
+    </div>
+    </div>
+{% endblock %}
+{% block footer %}
+    <script type="application/javascript" src="{% static 'index.js' %}"></script>
+{% endblock %}
